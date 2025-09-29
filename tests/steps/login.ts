@@ -28,7 +28,7 @@ After(async function (this: CustomWorld) {
 Given("User navigates to the application", async function (this: CustomWorld) {
   const loginUrl = "https://localhost:8443/realms/master/protocol/openid-connect/auth?client_id=security-admin-console&redirect_uri=https%3A%2F%2Flocalhost%3A8443%2Fadmin%2Fmaster%2Fconsole%2F&state=709258e8-05b7-4168-8756-9e94413eaef1&response_mode=query&response_type=code&scope=openid&nonce=2de2802e-3244-4c93-9311-f54021625589&code_challenge=z7IIqAlrE9bgUB86UrnOYcenVB7FF8CVhkQ3b0yEZww&code_challenge_method=S256";
   
-  console.log('🔗 Navigating to Keycloak login page...');
+  console.log('🔗 Navigating to Keycloak login page.....');
   
   // Ignore SSL certificate errors for localhost
   await this.page!.goto(loginUrl, { 
