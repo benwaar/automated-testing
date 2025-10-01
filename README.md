@@ -112,7 +112,7 @@ npm run cucumber:json
 npm run test:all
 ```
 
-### TypeScript & Linting
+### TypeScript, Linting & Formatting
 
 ```bash
 # Type checking
@@ -127,8 +127,17 @@ npm run lint:check
 # Lint and auto-fix issues
 npm run lint:fix
 
-# Run linting with automatic fixes
-npm run lint
+# Format code with Prettier
+npm run format
+
+# Check formatting without making changes
+npm run format:check
+
+# Format only source files
+npm run format:src
+
+# Run complete pre-commit checks
+npm run pre-commit
 ```
 
 ## 📁 Project Structure
@@ -151,14 +160,64 @@ npm run lint
 ├── reports/               # Test reports (generated)
 ├── .husky/               # Git hooks
 │   ├── commit-msg        # Commit message validation
-│   └── pre-commit        # Pre-commit linting and type checking
+│   └── pre-commit        # Pre-commit formatting, linting and type checking
 ├── .eslintrc.js          # ESLint configuration
 ├── .eslintignore         # ESLint ignore patterns
+├── .prettierrc           # Prettier configuration
+├── .prettierignore       # Prettier ignore patterns
 ├── playwright.config.ts   # Playwright configuration
 ├── cucumber.config.js     # Cucumber configuration
 ├── commitlint.config.js   # Commit message linting rules
 ├── tsconfig.json         # TypeScript configuration
 └── package.json          # Project dependencies
+```
+
+## 🔍 Code Quality, Linting & Formatting
+
+This project uses ESLint for linting and Prettier for code formatting to ensure
+consistent code quality and style.
+
+### Code Formatting (Prettier)
+
+- **Automatic Formatting**: Code is automatically formatted on every commit
+- **Single Quotes**: Consistent use of single quotes for strings
+- **Semicolons**: Always include semicolons
+- **Line Length**: Maximum 120 characters per line
+- **Indentation**: 2 spaces, no tabs
+- **Trailing Commas**: No trailing commas
+
+### Linting Rules (ESLint)
+
+- **TypeScript**: Strict type checking and best practices
+- **Code Style**: Integrated with Prettier for consistent formatting
+- **No Console**: Console statements allowed in test files
+- **Unused Variables**: Error on unused variables (except those prefixed with
+  `_`)
+- **Type Safety**: Ensures proper TypeScript usage
+
+### Automatic Checks
+
+- **Pre-commit Hook**: Runs Prettier formatting, ESLint, and TypeScript checking
+- **Commit Message**: Validates conventional commit format
+- **Auto-formatting**: Code is automatically formatted and re-staged
+
+### Manual Commands
+
+```bash
+# Check for linting issues
+npm run lint:check
+
+# Auto-fix linting issues where possible
+npm run lint:fix
+
+# Format code with Prettier
+npm run format
+
+# Check formatting without changes
+npm run format:check
+
+# Run complete pre-commit checks manually
+npm run pre-commit
 ```
 
 ## � Git Commit Guidelines
