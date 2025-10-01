@@ -1,10 +1,11 @@
 echo "🔍 Running pre-commit checks..."
 
+# Run linting
+echo "🔧 Linting TypeScript files..."
+npm run lint:check
+
 # Type check
 echo "🔧 Type checking..."
 npm run type-check
-
-# Run linting (if you have it)
-# npm run lint
 
 echo "✅ Pre-commit checks passed!"

@@ -16,8 +16,14 @@ function loadConfig() {
   return JSON.parse(fs.readFileSync(localConfigPath, 'utf8'));
 }
 
+interface Config {
+  baseUrl: string;
+  username: string;
+  password: string;
+}
+
 test.describe('Keycloak E2E Login Tests', () => {
-  let config: any;
+  let config: Config;
   
   test.beforeEach(async () => {
     config = loadConfig();
@@ -27,7 +33,12 @@ test.describe('Keycloak E2E Login Tests', () => {
     // Ignore SSL certificate errors for localhost
     await context.setExtraHTTPHeaders({});
     
-    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?client_id=security-admin-console&redirect_uri=${encodeURIComponent(config.baseUrl + 'admin/master/console/')}&state=${Date.now()}&response_mode=query&response_type=code&scope=openid&nonce=${Date.now()}`;
+    const redirectUri = encodeURIComponent(config.baseUrl + 'admin/master/console/');
+    const state = Date.now();
+    const nonce = Date.now();
+    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
+      `client_id=security-admin-console&redirect_uri=${redirectUri}&state=${state}&` +
+      `response_mode=query&response_type=code&scope=openid&nonce=${nonce}`;
     
     console.log(`🔗 Navigating to: ${loginUrl}`);
     
@@ -88,7 +99,12 @@ test.describe('Keycloak E2E Login Tests', () => {
   });
 
   test('should show error for invalid credentials', async ({ page }) => {
-    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?client_id=security-admin-console&redirect_uri=${encodeURIComponent(config.baseUrl + 'admin/master/console/')}&state=${Date.now()}&response_mode=query&response_type=code&scope=openid&nonce=${Date.now()}`;
+    const redirectUri = encodeURIComponent(config.baseUrl + 'admin/master/console/');
+    const state = Date.now();
+    const nonce = Date.now();
+    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
+      `client_id=security-admin-console&redirect_uri=${redirectUri}&state=${state}&` +
+      `response_mode=query&response_type=code&scope=openid&nonce=${nonce}`;
     
     // Navigate to the Keycloak login page
     await page.goto(loginUrl, { 

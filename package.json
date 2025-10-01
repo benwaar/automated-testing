@@ -22,7 +22,10 @@
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "commitlint:test": "echo 'test: example commit message' | commitlint",
-    "commit": "git add . && git commit"
+    "commit": "git add . && git commit",
+    "lint": "eslint src/**/*.ts --fix",
+    "lint:check": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "repository": {
     "type": "git",
@@ -47,6 +50,10 @@
     "@commitlint/config-conventional": "^20.0.0",
     "@playwright/test": "^1.55.1",
     "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-playwright": "^0.22.2",
     "husky": "^9.0.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+reports/
+test-results/
+playwright-report/
+.git/
+*.js
+*.json
+!.eslintrc.js
+!commitlint.config.js
+!cucumber.config.js
