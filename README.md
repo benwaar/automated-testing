@@ -95,12 +95,74 @@ npm run build
 │           └── login.ts    # TypeScript step implementations
 ├── tests-examples/         # Legacy test examples
 ├── reports/               # Test reports (generated)
+├── .husky/               # Git hooks
+│   ├── commit-msg        # Commit message validation
+│   └── pre-commit        # Pre-commit type checking
 ├── playwright.config.ts   # Playwright configuration
 ├── cucumber.config.js     # Cucumber configuration
+├── commitlint.config.js   # Commit message linting rules
 ├── tsconfig.json         # TypeScript configuration
 └── package.json          # Project dependencies
 ```
 
-## 📄 License
+## � Git Commit Guidelines
+
+This project uses [Conventional Commits](https://conventionalcommits.org/) with automated validation via commitlint.
+
+### Commit Message Format
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Allowed Types
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
+- **revert**: Reverts a previous commit
+
+### Examples
+```bash
+# ✅ Valid commit messages
+feat: add login functionality to keycloak tests
+fix: resolve SSL certificate issues in e2e tests  
+docs: update README with commit guidelines
+test: add negative test cases for invalid credentials
+
+# ❌ Invalid commit messages
+added new feature
+Fixed bug
+Update README
+```
+
+### Testing Commit Messages
+```bash
+# Test commitlint configuration
+npm run commitlint:test
+
+# Make a commit (will automatically validate)
+npm run commit
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes following the coding standards
+4. Commit your changes using conventional commits (`git commit -m 'feat: add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## �📄 License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.

@@ -18,7 +18,11 @@
     "cucumber:json": "npx cucumber-js --config cucumber.config.js --profile json",
     "test:all": "npm run test && npm run cucumber",
     "test:e2e": "npm run test",
-    "test:e2e:headed": "npm run test:headed"
+    "test:e2e:headed": "npm run test:headed",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit",
+    "commitlint:test": "echo 'test: example commit message' | commitlint",
+    "commit": "git add . && git commit"
   },
   "repository": {
     "type": "git",
@@ -43,6 +47,7 @@
     "@commitlint/config-conventional": "^20.0.0",
     "@playwright/test": "^1.55.1",
     "@types/node": "^24.5.2",
+    "husky": "^9.0.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
   },
