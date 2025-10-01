@@ -31,16 +31,26 @@ npm install
 
 ## 🧪 Running Tests
 
-### Playwright Tests
+### Playwright E2E Tests
 ```bash
-# Run all Playwright tests
-npm test
+# Run all E2E tests (headless)
+npm run test:e2e
 
-# Run tests in headed mode
-npm run test:headed
+# Run E2E tests in headed mode
+npm run test:e2e:headed
 
-# Run tests with UI mode
+# Run tests with UI mode (interactive)
 npm run test:ui
+
+# Run tests for specific environment
+npm run test:local   # Uses local.json config
+npm run test:dev     # Uses dev.json config
+
+# Debug tests (step-by-step)
+npm run test:debug
+
+# View test report
+npm run test:report
 ```
 
 ### Cucumber BDD Tests
@@ -70,14 +80,20 @@ npm run build
 ## 📁 Project Structure
 
 ```
-├── tests/                    # Test files
-│   ├── features/            # Cucumber feature files
-│   │   └── login.feature   # BDD scenarios
-│   ├── steps/              # Step definitions
-│   │   └── login.ts        # TypeScript step implementations
-│   └── example.spec.ts     # Playwright test examples
-├── tests-examples/         # Example demonstrations
-│   └── demo-todo-app.spec.ts
+├── src/                      # Source files
+│   ├── e2e/                 # E2E test files
+│   │   ├── keycloak.spec.ts # Keycloak login tests
+│   │   └── example.spec.ts  # Example Playwright tests
+│   ├── config/              # Environment configurations
+│   │   ├── local.json      # Local development config
+│   │   ├── dev.json        # Development environment config
+│   │   └── example.json    # Example configuration
+│   └── tests/              # Cucumber BDD tests
+│       ├── features/       # Cucumber feature files
+│       │   └── login.feature # BDD scenarios
+│       └── steps/          # Step definitions
+│           └── login.ts    # TypeScript step implementations
+├── tests-examples/         # Legacy test examples
 ├── reports/               # Test reports (generated)
 ├── playwright.config.ts   # Playwright configuration
 ├── cucumber.config.js     # Cucumber configuration

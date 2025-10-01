@@ -7,12 +7,18 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:ui": "npx playwright test --ui",
+    "test:local": "NODE_ENV=local npx playwright test --headed",
+    "test:dev": "NODE_ENV=dev npx playwright test --headed", 
+    "test:debug": "npx playwright test --debug",
+    "test:report": "npx playwright show-report",
     "build": "tsc",
     "type-check": "tsc --noEmit",
     "cucumber": "npx cucumber-js --config cucumber.config.js",
     "cucumber:html": "npx cucumber-js --config cucumber.config.js --profile html",
     "cucumber:json": "npx cucumber-js --config cucumber.config.js --profile json",
-    "test:all": "npm run test && npm run cucumber"
+    "test:all": "npm run test && npm run cucumber",
+    "test:e2e": "npm run test",
+    "test:e2e:headed": "npm run test:headed"
   },
   "repository": {
     "type": "git",
