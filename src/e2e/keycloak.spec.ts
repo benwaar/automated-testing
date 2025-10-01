@@ -6,11 +6,11 @@ import * as path from 'path';
 function loadConfig() {
   const env = process.env.NODE_ENV || 'local';
   const configPath = path.join(__dirname, '..', 'config', `${env}.json`);
-  
+
   if (fs.existsSync(configPath)) {
     return JSON.parse(fs.readFileSync(configPath, 'utf8'));
   }
-  
+
   // Fallback to example config
   const localConfigPath = path.join(__dirname, '..', 'config', 'example.json');
   return JSON.parse(fs.readFileSync(localConfigPath, 'utf8'));
@@ -24,7 +24,7 @@ interface Config {
 
 test.describe('Keycloak E2E Login Tests', () => {
   let config: Config;
-  
+
   test.beforeEach(async () => {
     config = loadConfig();
   });
@@ -32,20 +32,21 @@ test.describe('Keycloak E2E Login Tests', () => {
   test('should successfully login to Keycloak Administration Console', async ({ page, context }) => {
     // Ignore SSL certificate errors for localhost
     await context.setExtraHTTPHeaders({});
-    
+
     const redirectUri = encodeURIComponent(config.baseUrl + 'admin/master/console/');
     const state = Date.now();
     const nonce = Date.now();
-    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
+    const loginUrl =
+      `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
       `client_id=security-admin-console&redirect_uri=${redirectUri}&state=${state}&` +
       `response_mode=query&response_type=code&scope=openid&nonce=${nonce}`;
-    
+
     console.log(`🔗 Navigating to: ${loginUrl}`);
-    
+
     // Navigate to the Keycloak login page
-    await page.goto(loginUrl, { 
+    await page.goto(loginUrl, {
       waitUntil: 'networkidle',
-      timeout: 30000 
+      timeout: 30000
     });
 
     // Wait for the login page to load
@@ -55,7 +56,7 @@ test.describe('Keycloak E2E Login Tests', () => {
     await page.locator('input[name="username"]').fill(config.username);
     console.log(`📧 Entered username: ${config.username}`);
 
-    // Fill in the password field  
+    // Fill in the password field
     await page.locator('input[name="password"]').fill(config.password);
     console.log('🔐 Password entered');
 
@@ -64,20 +65,20 @@ test.describe('Keycloak E2E Login Tests', () => {
     console.log('🔑 Login button clicked');
 
     // Wait for redirect to admin console
-    await page.waitForURL(url => url.toString().includes('/admin/master/console'), { 
-      timeout: 20000 
+    await page.waitForURL(url => url.toString().includes('/admin/master/console'), {
+      timeout: 20000
     });
 
     // Verify successful login by checking for the administration console
     await expect(page).toHaveTitle(/Keycloak/i, { timeout: 15000 });
-    
+
     // Verify that we're in the admin console
     const adminElements = [
       page.getByText('Master realm').first(),
       page.locator('.pf-c-page'),
       page.locator('.navbar, nav')
     ];
-    
+
     // Wait for at least one admin element to be visible
     let elementFound = false;
     for (const element of adminElements) {
@@ -89,12 +90,12 @@ test.describe('Keycloak E2E Login Tests', () => {
         // Continue to next element
       }
     }
-    
+
     if (!elementFound) {
       // Fallback: check we're not on login page
       expect(page.url()).not.toContain('/protocol/openid-connect/auth');
     }
-    
+
     console.log('✅ Successfully logged into Keycloak admin console');
   });
 
@@ -102,14 +103,15 @@ test.describe('Keycloak E2E Login Tests', () => {
     const redirectUri = encodeURIComponent(config.baseUrl + 'admin/master/console/');
     const state = Date.now();
     const nonce = Date.now();
-    const loginUrl = `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
+    const loginUrl =
+      `${config.baseUrl}realms/master/protocol/openid-connect/auth?` +
       `client_id=security-admin-console&redirect_uri=${redirectUri}&state=${state}&` +
       `response_mode=query&response_type=code&scope=openid&nonce=${nonce}`;
-    
+
     // Navigate to the Keycloak login page
-    await page.goto(loginUrl, { 
+    await page.goto(loginUrl, {
       waitUntil: 'networkidle',
-      timeout: 30000 
+      timeout: 30000
     });
 
     // Wait for the login page to load
@@ -125,10 +127,10 @@ test.describe('Keycloak E2E Login Tests', () => {
     // Verify error message is displayed
     const errorMessage = page.locator('#input-error, .pf-c-alert, [class*="error"]').first();
     await expect(errorMessage).toBeVisible({ timeout: 10000 });
-    
+
     // Verify we're still on the login page
     expect(!page.url()).toContain('/protocol/openid-connect/auth');
-    
+
     console.log('✅ Error message displayed for invalid credentials');
   });
 });

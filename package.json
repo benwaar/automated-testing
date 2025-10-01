@@ -8,7 +8,7 @@
     "test:headed": "npx playwright test --headed",
     "test:ui": "npx playwright test --ui",
     "test:local": "NODE_ENV=local npx playwright test --headed",
-    "test:dev": "NODE_ENV=dev npx playwright test --headed", 
+    "test:dev": "NODE_ENV=dev npx playwright test --headed",
     "test:debug": "npx playwright test --debug",
     "test:report": "npx playwright show-report",
     "build": "tsc",
@@ -25,7 +25,11 @@
     "commit": "git add . && git commit",
     "lint": "eslint src/**/*.ts --fix",
     "lint:check": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:src": "prettier --write 'src/**/*.{ts,js,json}' '*.ts' '*.js'",
+    "pre-commit": "npm run format:src && npm run lint:check && npm run type-check"
   },
   "repository": {
     "type": "git",
@@ -53,8 +57,11 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-playwright": "^0.22.2",
+    "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.0.11",
+    "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
   },

@@ -1,5 +1,9 @@
 echo "🔍 Running pre-commit checks..."
 
+# Format code with Prettier
+echo "💄 Formatting code with Prettier..."
+npx prettier --write --ignore-unknown .
+
 # Run linting
 echo "🔧 Linting TypeScript files..."
 npm run lint:check
@@ -7,5 +11,9 @@ npm run lint:check
 # Type check
 echo "🔧 Type checking..."
 npm run type-check
+
+# Add formatted files back to staging
+echo "📝 Adding formatted files to staging..."
+git add .
 
 echo "✅ Pre-commit checks passed!"

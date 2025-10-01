@@ -2,21 +2,27 @@
 
 A comprehensive testing framework combining b## 🔍 Code Quality & Linting
 
-This project uses ESLint for TypeScript linting to ensure code quality and consistency.
+This project uses ESLint for TypeScript linting to ensure code quality and
+consistency.
 
 ### Linting Rules
+
 - **TypeScript**: Strict type checking and best practices
-- **Code Style**: Consistent formatting with single quotes, semicolons, and 2-space indentation
+- **Code Style**: Consistent formatting with single quotes, semicolons, and
+  2-space indentation
 - **Line Length**: Maximum 120 characters per line
 - **No Console**: Console statements allowed in test files
-- **Unused Variables**: Error on unused variables (except those prefixed with `_`)
+- **Unused Variables**: Error on unused variables (except those prefixed with
+  `_`)
 
 ### Automatic Checks
+
 - **Pre-commit Hook**: Runs ESLint and TypeScript checking before each commit
 - **Commit Message**: Validates conventional commit format
 - **Type Safety**: Ensures all TypeScript compiles without errors
 
 ### Manual Linting
+
 ```bash
 # Check for linting issues
 npm run lint:check
@@ -41,15 +47,23 @@ npm run lint
 ## 🛠️ Technologies
 
 ### Testing Frameworks
-- **[Playwright](https://playwright.dev/)** - Open-source framework by Microsoft for web automation and end-to-end testing
-- **[Cucumber](https://cucumber.io/)** - Popular testing framework that uses Gherkin plain-text format to support behavior-driven development (BDD)
+
+- **[Playwright](https://playwright.dev/)** - Open-source framework by Microsoft
+  for web automation and end-to-end testing
+- **[Cucumber](https://cucumber.io/)** - Popular testing framework that uses
+  Gherkin plain-text format to support behavior-driven development (BDD)
 
 ### Languages & Specifications
-- **[Gherkin](https://cucumber.io/docs/gherkin/)** - Business-readable domain-specific language for behavior specification
+
+- **[Gherkin](https://cucumber.io/docs/gherkin/)** - Business-readable
+  domain-specific language for behavior specification
 - **TypeScript** - Type-safe JavaScript development
 
 ### Quality Assurance
-- **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** - Automated tool for improving web page quality through performance, accessibility, and SEO audits
+
+- **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** -
+  Automated tool for improving web page quality through performance,
+  accessibility, and SEO audits
 
 ## 📦 Installation
 
@@ -60,6 +74,7 @@ npm install
 ## 🧪 Running Tests
 
 ### Playwright E2E Tests
+
 ```bash
 # Run all E2E tests (headless)
 npm run test:e2e
@@ -82,6 +97,7 @@ npm run test:report
 ```
 
 ### Cucumber BDD Tests
+
 ```bash
 # Run Cucumber tests
 npm run cucumber
@@ -97,6 +113,7 @@ npm run test:all
 ```
 
 ### TypeScript & Linting
+
 ```bash
 # Type checking
 npm run type-check
@@ -146,9 +163,11 @@ npm run lint
 
 ## � Git Commit Guidelines
 
-This project uses [Conventional Commits](https://conventionalcommits.org/) with automated validation via commitlint.
+This project uses [Conventional Commits](https://conventionalcommits.org/) with
+automated validation via commitlint.
 
 ### Commit Message Format
+
 ```
 <type>[optional scope]: <description>
 
@@ -158,6 +177,7 @@ This project uses [Conventional Commits](https://conventionalcommits.org/) with 
 ```
 
 ### Allowed Types
+
 - **feat**: A new feature
 - **fix**: A bug fix
 - **docs**: Documentation only changes
@@ -171,10 +191,11 @@ This project uses [Conventional Commits](https://conventionalcommits.org/) with 
 - **revert**: Reverts a previous commit
 
 ### Examples
+
 ```bash
 # ✅ Valid commit messages
 feat: add login functionality to keycloak tests
-fix: resolve SSL certificate issues in e2e tests  
+fix: resolve SSL certificate issues in e2e tests
 docs: update README with commit guidelines
 test: add negative test cases for invalid credentials
 
@@ -185,6 +206,7 @@ Update README
 ```
 
 ### Testing Commit Messages
+
 ```bash
 # Test commitlint configuration
 npm run commitlint:test
@@ -198,10 +220,12 @@ npm run commit
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes following the coding standards
-4. Commit your changes using conventional commits (`git commit -m 'feat: add amazing feature'`)
+4. Commit your changes using conventional commits
+   (`git commit -m 'feat: add amazing feature'`)
 5. Push to the branch (`git push origin feature/amazing-feature`)
 6. Open a Pull Request
 
 ## �📄 License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
+for details.

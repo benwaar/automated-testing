@@ -17,16 +17,8 @@
     "sourceMap": true,
     "types": ["node", "@playwright/test"]
   },
-  "include": [
-    "tests/**/*",
-    "playwright.config.ts",
-    "cucumber.config.js"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "reports"
-  ],
+  "include": ["tests/**/*", "playwright.config.ts", "cucumber.config.js"],
+  "exclude": ["node_modules", "dist", "reports"],
   "ts-node": {
     "esm": false,
     "compilerOptions": {

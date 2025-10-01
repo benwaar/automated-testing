@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+reports/
+test-results/
+playwright-report/
+*.min.js
+*.min.css
+package-lock.json
+.git/
+.husky/_/
