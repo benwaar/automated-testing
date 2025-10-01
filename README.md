@@ -1,6 +1,34 @@
 # Automated Testing - Test project for trying things out using Keycloak
 
-A comprehensive testing framework combining behavior-driven development (BDD) with modern web automation tools. This project integrates Playwright for end-to-end testing, Cucumber for BDD scenarios, and Lighthouse for accessibility and performance auditing.
+A comprehensive testing framework combining b## 🔍 Code Quality & Linting
+
+This project uses ESLint for TypeScript linting to ensure code quality and consistency.
+
+### Linting Rules
+- **TypeScript**: Strict type checking and best practices
+- **Code Style**: Consistent formatting with single quotes, semicolons, and 2-space indentation
+- **Line Length**: Maximum 120 characters per line
+- **No Console**: Console statements allowed in test files
+- **Unused Variables**: Error on unused variables (except those prefixed with `_`)
+
+### Automatic Checks
+- **Pre-commit Hook**: Runs ESLint and TypeScript checking before each commit
+- **Commit Message**: Validates conventional commit format
+- **Type Safety**: Ensures all TypeScript compiles without errors
+
+### Manual Linting
+```bash
+# Check for linting issues
+npm run lint:check
+
+# Auto-fix linting issues where possible
+npm run lint:fix
+
+# Run full linting with fixes
+npm run lint
+```
+
+## 📝 Git Commit Guidelineshavior-driven development (BDD) with modern web automation tools. This project integrates Playwright for end-to-end testing, Cucumber for BDD scenarios, and Lighthouse for accessibility and performance auditing.
 
 ## 🚀 Features
 
@@ -68,13 +96,22 @@ npm run cucumber:json
 npm run test:all
 ```
 
-### TypeScript
+### TypeScript & Linting
 ```bash
 # Type checking
 npm run type-check
 
 # Build TypeScript
 npm run build
+
+# Lint TypeScript files
+npm run lint:check
+
+# Lint and auto-fix issues
+npm run lint:fix
+
+# Run linting with automatic fixes
+npm run lint
 ```
 
 ## 📁 Project Structure
@@ -97,7 +134,9 @@ npm run build
 ├── reports/               # Test reports (generated)
 ├── .husky/               # Git hooks
 │   ├── commit-msg        # Commit message validation
-│   └── pre-commit        # Pre-commit type checking
+│   └── pre-commit        # Pre-commit linting and type checking
+├── .eslintrc.js          # ESLint configuration
+├── .eslintignore         # ESLint ignore patterns
 ├── playwright.config.ts   # Playwright configuration
 ├── cucumber.config.js     # Cucumber configuration
 ├── commitlint.config.js   # Commit message linting rules
