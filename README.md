@@ -139,14 +139,23 @@ npm run test:report
 ### Cucumber BDD Tests
 
 ```bash
-# Run Cucumber tests
+# Run Cucumber tests (default environment)
 npm run cucumber
 
-# Generate HTML report
+# Run Cucumber tests for specific environment
+npm run cucumber:local    # Uses local.json config
+npm run cucumber:dev      # Uses dev.json config
+
+# Generate HTML report (default environment)
 npm run cucumber:html
 
-# Generate JSON report
-npm run cucumber:json
+# Generate HTML reports for specific environment
+npm run cucumber:html:local  # Local environment with HTML report
+npm run cucumber:html:dev    # Dev environment with HTML report
+
+# Generate JSON reports for specific environment
+npm run cucumber:json:local  # Local environment with JSON report
+npm run cucumber:json:dev    # Dev environment with JSON report
 
 # Run all tests (Playwright + Cucumber)
 npm run test:all
@@ -238,7 +247,6 @@ npm run pre-commit
 │       ├── local.json       # Local development config (add your own)
 │       ├── dev.json         # Development environment config (add your own)
 │       └── example.json     # Example configuration
-├── tests-examples/         # Legacy test examples
 ├── reports/               # Test reports (generated)
 ├── .husky/               # Git hooks
 │   ├── commit-msg        # Commit message validation

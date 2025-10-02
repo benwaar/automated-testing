@@ -1,16 +1,44 @@
 import { Given, When, Then, Before, After, setWorldConstructor } from '@cucumber/cucumber';
 import { chromium, expect, Browser, BrowserContext, Page } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Load configuration based on environment
+function loadConfig() {
+  const env = process.env.NODE_ENV || 'local';
+  const configPath = path.join(__dirname, '..', 'config', `${env}.json`);
+
+  if (fs.existsSync(configPath)) {
+    return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  }
+
+  // Fallback to local config
+  const localConfigPath = path.join(__dirname, '..', 'config', 'local.json');
+  return JSON.parse(fs.readFileSync(localConfigPath, 'utf8'));
+}
+
+interface Config {
+  baseUrl: string;
+  username: string;
+  password: string;
+}
 
 // World constructor to share browser context across steps
 class CustomWorld {
   public browser: Browser | null = null;
   public context: BrowserContext | null = null;
   public page: Page | null = null;
+  public config: Config | null = null;
 }
 
 setWorldConstructor(CustomWorld);
 
 Before(async function (this: CustomWorld) {
+  // Load environment-specific configuration
+  this.config = loadConfig();
+  console.log(`🔧 Using environment: ${process.env.NODE_ENV || 'local'}`);
+  console.log(`🌐 Base URL: ${this.config?.baseUrl}`);
+
   this.browser = await chromium.launch({ headless: false });
   this.context = await this.browser.newContext({
     ignoreHTTPSErrors: true, // Ignore SSL certificate errors for localhost
@@ -26,12 +54,22 @@ After(async function (this: CustomWorld) {
 });
 
 Given('User navigates to the application', async function (this: CustomWorld) {
+  if (!this.config) {
+    throw new Error('Configuration not loaded');
+  }
+
+  // Build dynamic login URL using configuration
+  const redirectUri = encodeURIComponent(this.config.baseUrl + 'admin/master/console/');
+  const state = Date.now();
+  const nonce = Date.now();
   const loginUrl =
-    'https://localhost:8443/realms/master/protocol/openid-connect/auth?client_id=security-admin-console&redirect_uri=https%3A%2F%2Flocalhost%3A8443%2Fadmin%2Fmaster%2Fconsole%2F&state=709258e8-05b7-4168-8756-9e94413eaef1&response_mode=query&response_type=code&scope=openid&nonce=2de2802e-3244-4c93-9311-f54021625589&code_challenge=z7IIqAlrE9bgUB86UrnOYcenVB7FF8CVhkQ3b0yEZww&code_challenge_method=S256';
+    `${this.config.baseUrl}realms/master/protocol/openid-connect/auth?` +
+    `client_id=security-admin-console&redirect_uri=${redirectUri}&state=${state}&` +
+    `response_mode=query&response_type=code&scope=openid&nonce=${nonce}`;
 
-  console.log('🔗 Navigating to Keycloak login page..');
+  console.log(`🔗 Navigating to Keycloak login page: ${this.config.baseUrl}`);
 
-  // Ignore SSL certificate errors for localhost
+  // Navigate to the login URL
   await this.page!.goto(loginUrl, {
     waitUntil: 'networkidle',
     timeout: 30000
@@ -45,16 +83,30 @@ Given('User navigates to the application', async function (this: CustomWorld) {
 });
 
 When('I enter the username as {string}', async function (this: CustomWorld, username: string) {
+  if (!this.config) {
+    throw new Error('Configuration not loaded');
+  }
+
+  // Use config username if "admin" is specified, otherwise use the provided value
+  const actualUsername = username === 'admin' ? this.config.username : username;
+
   // Keycloak specific selectors - username field is typically named "username"
   const usernameField = this.page!.locator('input[name="username"], input[id="username"], input[type="text"]').first();
   await usernameField.waitFor({ state: 'visible', timeout: 10000 });
   await usernameField.click();
   await usernameField.clear();
-  await usernameField.fill(username);
-  console.log(`📧 Entered username: ${username}`);
+  await usernameField.fill(actualUsername);
+  console.log(`📧 Entered username: ${actualUsername} (from ${username === 'admin' ? 'config' : 'feature file'})`);
 });
 
 When('I enter the password as {string}', async function (this: CustomWorld, password: string) {
+  if (!this.config) {
+    throw new Error('Configuration not loaded');
+  }
+
+  // Use config password if "password" is specified, otherwise use the provided value
+  const actualPassword = password === 'password' ? this.config.password : password;
+
   // Keycloak specific selectors - password field is typically named "password"
   const passwordField = this.page!.locator(
     'input[name="password"], input[id="password"], input[type="password"]'
@@ -62,8 +114,8 @@ When('I enter the password as {string}', async function (this: CustomWorld, pass
   await passwordField.waitFor({ state: 'visible', timeout: 10000 });
   await passwordField.click();
   await passwordField.clear();
-  await passwordField.fill(password);
-  console.log('🔐 Password entered');
+  await passwordField.fill(actualPassword);
+  console.log(`🔐 Password entered (from ${password === 'password' ? 'config' : 'feature file'})`);
 });
 
 When('I click on login button', async function (this: CustomWorld) {
