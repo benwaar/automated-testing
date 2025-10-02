@@ -20,6 +20,8 @@
     "test:e2e": "npm run test",
     "test:e2e:headed": "npm run test:headed",
     "test:lighthouse": "npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
+    "test:lighthouse:local": "NODE_ENV=local npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
+    "test:lighthouse:dev": "NODE_ENV=dev npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "commitlint:test": "echo 'test: example commit message' | commitlint",

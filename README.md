@@ -151,6 +151,10 @@ npm run test:all
 # Run Lighthouse performance audits (Chromium only)
 npm run test:lighthouse
 
+# Run Lighthouse tests for specific environment
+npm run test:lighthouse:local   # Uses local.json config
+npm run test:lighthouse:dev     # Uses dev.json config
+
 # Reports are automatically generated in reports/lighthouse/
 # Each report includes detailed JSON data with:
 # - Performance metrics (FCP, LCP, CLS, TTI)
