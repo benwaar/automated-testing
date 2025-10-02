@@ -220,16 +220,17 @@ npm run pre-commit
 ├── src/                      # Source files
 │   ├── e2e/                 # E2E test files
 │   │   ├── keycloak.spec.ts # Keycloak login tests
+│   │   ├── keycloak.lighthouse.spec.ts # Lighthouse performance tests
 │   │   └── example.spec.ts  # Example Playwright tests
-│   ├── config/              # Environment configurations
-│   │   ├── local.json      # Local development config
-│   │   ├── dev.json        # Development environment config
-│   │   └── example.json    # Example configuration
-│   └── tests/              # Cucumber BDD tests
-│       ├── features/       # Cucumber feature files
-│       │   └── login.feature # BDD scenarios
-│       └── steps/          # Step definitions
-│           └── login.ts    # TypeScript step implementations
+│   ├── bdd/                 # Cucumber BDD tests
+│   │   ├── features/        # Cucumber feature files
+│   │   │   └── login.feature # BDD scenarios
+│   │   └── steps/           # Step definitions
+│   │       └── login.ts     # TypeScript step implementations
+│   └── config/              # Environment configurations
+│       ├── local.json       # Local development config
+│       ├── dev.json         # Development environment config
+│       └── example.json     # Example configuration
 ├── tests-examples/         # Legacy test examples
 ├── reports/               # Test reports (generated)
 ├── .husky/               # Git hooks

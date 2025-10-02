@@ -1,0 +1,215 @@
+[
+  {
+    "description": "  As a Keycloak administrator\n  I want to be able to log in to the admin console\n  So that I can manage users, realms, and configurations",
+    "elements": [
+      {
+        "description": "",
+        "id": "keycloak-admin-console-authentication;successful-login-with-admin-credentials",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Successful login with admin credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "User navigates to the application",
+            "match": {
+              "location": "src/bdd/steps/login.ts:28"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "I enter the username as \"admin\"",
+            "match": {
+              "location": "src/bdd/steps/login.ts:47"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I enter the password as \"password\"",
+            "match": {
+              "location": "src/bdd/steps/login.ts:57"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "I click on login button",
+            "match": {
+              "location": "src/bdd/steps/login.ts:69"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "User should logged in successfully",
+            "match": {
+              "location": "src/bdd/steps/login.ts:79"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "Logout from the application",
+            "match": {
+              "location": "src/bdd/steps/login.ts:130"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "keycloak-admin-console-authentication;login-attempt-with-invalid-credentials",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "Login attempt with invalid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 16,
+            "name": "User navigates to the application",
+            "match": {
+              "location": "src/bdd/steps/login.ts:28"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "I enter the username as \"invaliduser\"",
+            "match": {
+              "location": "src/bdd/steps/login.ts:47"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "I enter the password as \"wrongpassword\"",
+            "match": {
+              "location": "src/bdd/steps/login.ts:57"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "I click on login button",
+            "match": {
+              "location": "src/bdd/steps/login.ts:69"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "I should see an error message",
+            "match": {
+              "location": "src/bdd/steps/login.ts:116"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@negative",
+            "line": 14
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "keycloak-admin-console-authentication",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Keycloak Admin Console Authentication",
+    "tags": [],
+    "uri": "src/bdd/features/login.feature"
+  }
+]
