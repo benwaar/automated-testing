@@ -145,6 +145,31 @@ npm run cucumber:json
 npm run test:all
 ```
 
+### Lighthouse Performance Tests
+
+```bash
+# Run Lighthouse performance audits (Chromium only)
+npm run test:lighthouse
+
+# Reports are automatically generated in reports/lighthouse/
+# Each report includes detailed JSON data with:
+# - Performance metrics (FCP, LCP, CLS, TTI)
+# - Accessibility audit results (100% score)
+# - Best practices evaluation (100% score)
+# - SEO analysis (50% score for login pages)
+# - Core Web Vitals measurements
+# - Network requests and resource analysis
+```
+
+**Lighthouse Results for Keycloak Login:**
+
+- 📊 Performance Score: 56%
+- ♿ Accessibility Score: 100%
+- ✅ Best Practices Score: 100%
+- 🔍 SEO Score: 50%
+- 🎨 First Contentful Paint: ~9.6s
+- 🖼️ Largest Contentful Paint: ~10.6s
+
 ### TypeScript, Linting & Formatting
 
 ```bash

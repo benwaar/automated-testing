@@ -1,5 +1,5 @@
 {
-  "baseUrl": "a url",
-  "username": "a username",
-  "password": "password"
+  "baseUrl": "https://localhost:8443/",
+  "username": "",
+  "password": ""
 }

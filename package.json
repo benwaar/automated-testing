@@ -19,6 +19,7 @@
     "test:all": "npm run test && npm run cucumber",
     "test:e2e": "npm run test",
     "test:e2e:headed": "npm run test:headed",
+    "test:lighthouse": "npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "commitlint:test": "echo 'test: example commit message' | commitlint",
@@ -61,6 +62,8 @@
     "eslint-plugin-playwright": "^0.22.2",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.0.11",
+    "lighthouse": "^12.0.0",
+    "playwright-lighthouse": "^4.0.0",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
