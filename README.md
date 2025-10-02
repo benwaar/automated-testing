@@ -12,23 +12,8 @@ This is an **example testing project** that demonstrates automated testing of
 authentication flows, performance metrics, and accessibility compliance for
 Keycloak's admin console.
 
-### 🐳 Local Keycloak Setup
-
-To run the tests locally, you'll need a Keycloak instance running in Docker:
-
-```bash
-# Start Keycloak with Docker (as per official documentation)
-docker run -p 8443:8443 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev --https-port=8443
-```
-
-For detailed setup instructions, visit the
+For Keycloak setup instructions, visit the
 [official Keycloak Docker guide](https://www.keycloak.org/getting-started/getting-started-docker).
-
-**Default Test Credentials:**
-
-- **Username:** `admin`
-- **Password:** `admin`
-- **URL:** `https://localhost:8443`
 
 The test configurations are located in `src/config/` and can be customized for
 different environments.
