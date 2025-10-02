@@ -5,6 +5,34 @@ with modern web automation tools. This project integrates Playwright for
 end-to-end testing, Cucumber for BDD scenarios, and Lighthouse for accessibility
 and performance auditing.
 
+## 🎯 About This Project
+
+This is an **example testing project** that demonstrates automated testing of
+**Keycloak's login page** using modern testing frameworks. The tests validate
+authentication flows, performance metrics, and accessibility compliance for
+Keycloak's admin console.
+
+### 🐳 Local Keycloak Setup
+
+To run the tests locally, you'll need a Keycloak instance running in Docker:
+
+```bash
+# Start Keycloak with Docker (as per official documentation)
+docker run -p 8443:8443 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev --https-port=8443
+```
+
+For detailed setup instructions, visit the
+[official Keycloak Docker guide](https://www.keycloak.org/getting-started/getting-started-docker).
+
+**Default Test Credentials:**
+
+- **Username:** `admin`
+- **Password:** `admin`
+- **URL:** `https://localhost:8443`
+
+The test configurations are located in `src/config/` and can be customized for
+different environments.
+
 ## 🚀 Features
 
 - **End-to-End Testing** with Playwright
@@ -72,6 +100,16 @@ npm run lint
 ```bash
 npm install
 ```
+
+### 📋 Prerequisites
+
+Before running the tests, ensure you have:
+
+1. **Node.js** (v18+ recommended)
+2. **Keycloak instance** running locally via Docker (see
+   [About This Project](#-about-this-project) section above)
+3. **Valid SSL certificate** acceptance in your browser for
+   `https://localhost:8443`
 
 ## 🧪 Running Tests
 
@@ -197,8 +235,8 @@ npm run pre-commit
 │   │   └── steps/           # Step definitions
 │   │       └── login.ts     # TypeScript step implementations
 │   └── config/              # Environment configurations
-│       ├── local.json       # Local development config
-│       ├── dev.json         # Development environment config
+│       ├── local.json       # Local development config (add your own)
+│       ├── dev.json         # Development environment config (add your own)
 │       └── example.json     # Example configuration
 ├── tests-examples/         # Legacy test examples
 ├── reports/               # Test reports (generated)
