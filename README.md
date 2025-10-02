@@ -67,37 +67,6 @@ npm run lint:fix
 npm run lint
 ```
 
-## 📝 Git Commit Guidelineshavior-driven development (BDD) with modern web automation tools. This project integrates Playwright for end-to-end testing, Cucumber for BDD scenarios, and Lighthouse for accessibility and performance auditing.
-
-## 🚀 Features
-
-- **End-to-End Testing** with Playwright
-- **Behavior-Driven Development** using Gherkin syntax and Cucumber
-- **Accessibility Testing** with Lighthouse integration
-- **Cross-browser Testing** support
-- **Parallel Test Execution**
-
-## 🛠️ Technologies
-
-### Testing Frameworks
-
-- **[Playwright](https://playwright.dev/)** - Open-source framework by Microsoft
-  for web automation and end-to-end testing
-- **[Cucumber](https://cucumber.io/)** - Popular testing framework that uses
-  Gherkin plain-text format to support behavior-driven development (BDD)
-
-### Languages & Specifications
-
-- **[Gherkin](https://cucumber.io/docs/gherkin/)** - Business-readable
-  domain-specific language for behavior specification
-- **TypeScript** - Type-safe JavaScript development
-
-### Quality Assurance
-
-- **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** -
-  Automated tool for improving web page quality through performance,
-  accessibility, and SEO audits
-
 ## 📦 Installation
 
 ```bash
@@ -295,7 +264,7 @@ npm run format:check
 npm run pre-commit
 ```
 
-## � Git Commit Guidelines
+## 📝 Git Commit Guidelines
 
 This project uses [Conventional Commits](https://conventionalcommits.org/) with
 automated validation via commitlint.
@@ -359,7 +328,7 @@ npm run commit
 5. Push to the branch (`git push origin feature/amazing-feature`)
 6. Open a Pull Request
 
-## �📄 License
+## 📄 License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 for details.
