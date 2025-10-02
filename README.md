@@ -1,9 +1,42 @@
-# Automated Testing - Test project for trying things out using Keycloak
+# Automated Testing
 
-A comprehensive testing framework combining b## 🔍 Code Quality & Linting
+A comprehensive testing framework combining behavior-driven development (BDD)
+with modern web automation tools. This project integrates Playwright for
+end-to-end testing, Cucumber for BDD scenarios, and Lighthouse for accessibility
+and performance auditing.
 
-This project uses ESLint for TypeScript linting to ensure code quality and
-consistency.
+## 🚀 Features
+
+- **End-to-End Testing** with Playwright
+- **Behavior-Driven Development** using Gherkin syntax and Cucumber
+- **Accessibility Testing** with Lighthouse integration
+- **Cross-browser Testing** support
+- **Parallel Test Execution**
+- **Automated Code Quality** with ESLint and Prettier
+- **Git Hooks** for commit validation and code formatting
+
+## 🛠️ Technologies
+
+### Testing Frameworks
+
+- **[Playwright](https://playwright.dev/)** - Open-source framework by Microsoft
+  for web automation and end-to-end testing
+- **[Cucumber](https://cucumber.io/)** - Popular testing framework that uses
+  Gherkin plain-text format to support behavior-driven development (BDD)
+
+### Languages & Specifications
+
+- **[Gherkin](https://cucumber.io/docs/gherkin/)** - Business-readable
+  domain-specific language for behavior specification
+- **TypeScript** - Type-safe JavaScript development
+
+### Quality Assurance
+
+- **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** -
+  Automated tool for improving web page quality through performance,
+  accessibility, and SEO audits
+- **ESLint** - TypeScript linting for code quality
+- **Prettier** - Code formatting for consistency
 
 ### Linting Rules
 
