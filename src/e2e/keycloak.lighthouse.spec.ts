@@ -66,6 +66,9 @@ test.describe('Keycloak Login Page - Lighthouse Audits', () => {
       // Dynamic import for playwright-lighthouse
       const { playAudit } = await import('playwright-lighthouse');
 
+      // Determine report format from environment variable
+      const reportFormat = process.env.LIGHTHOUSE_FORMAT || 'json';
+
       // Run Lighthouse audit using the existing page with custom thresholds
       const lighthouseReport = await playAudit({
         page,
@@ -84,14 +87,30 @@ test.describe('Keycloak Login Page - Lighthouse Audits', () => {
       if (!fs.existsSync(reportsDir)) {
         fs.mkdirSync(reportsDir, { recursive: true });
       }
-
-      // Save Lighthouse report if available
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const reportPath = path.join(reportsDir, `keycloak-login-${timestamp}.json`);
 
       if (lighthouseReport && lighthouseReport.lhr) {
-        fs.writeFileSync(reportPath, JSON.stringify(lighthouseReport.lhr, null, 2));
-        console.log(`📊 Lighthouse report saved: ${reportPath}`);
+        if (reportFormat === 'html') {
+          try {
+            // Generate HTML report using Lighthouse's ReportGenerator
+            const { ReportGenerator } = await import('lighthouse/report/generator/report-generator.js');
+            const htmlReport = ReportGenerator.generateReport(lighthouseReport.lhr, 'html');
+            const htmlReportPath = path.join(reportsDir, `keycloak-login-${timestamp}.html`);
+            const htmlContent = Array.isArray(htmlReport) ? htmlReport[0] : htmlReport;
+            fs.writeFileSync(htmlReportPath, htmlContent);
+            console.log(`📊 Lighthouse HTML report saved: ${htmlReportPath}`);
+          } catch (error) {
+            console.warn('⚠️ HTML report generation failed, saving JSON instead:', error);
+            const jsonReportPath = path.join(reportsDir, `keycloak-login-${timestamp}.json`);
+            fs.writeFileSync(jsonReportPath, JSON.stringify(lighthouseReport.lhr, null, 2));
+            console.log(`📊 Lighthouse JSON report saved: ${jsonReportPath}`);
+          }
+        } else {
+          // Save JSON report (default)
+          const jsonReportPath = path.join(reportsDir, `keycloak-login-${timestamp}.json`);
+          fs.writeFileSync(jsonReportPath, JSON.stringify(lighthouseReport.lhr, null, 2));
+          console.log(`📊 Lighthouse JSON report saved: ${jsonReportPath}`);
+        }
       }
 
       // Performance assertions with null checks

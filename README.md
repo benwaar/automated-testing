@@ -151,18 +151,30 @@ npm run test:all
 # Run Lighthouse performance audits (Chromium only)
 npm run test:lighthouse
 
-# Run Lighthouse tests for specific environment
+# Run Lighthouse tests for specific environment (JSON format)
 npm run test:lighthouse:local   # Uses local.json config
 npm run test:lighthouse:dev     # Uses dev.json config
 
+# Run Lighthouse tests with HTML reports (visual format)
+npm run test:lighthouse:html        # Default environment with HTML report
+npm run test:lighthouse:local:html  # Local environment with HTML report
+npm run test:lighthouse:dev:html    # Dev environment with HTML report
+
 # Reports are automatically generated in reports/lighthouse/
-# Each report includes detailed JSON data with:
+# JSON reports (.json) - Detailed programmatic data with:
 # - Performance metrics (FCP, LCP, CLS, TTI)
 # - Accessibility audit results (100% score)
 # - Best practices evaluation (100% score)
 # - SEO analysis (50% score for login pages)
 # - Core Web Vitals measurements
 # - Network requests and resource analysis
+
+# HTML reports (.html) - Interactive visual reports with:
+# - Color-coded performance metrics and scores
+# - Detailed audit results with explanations
+# - Performance recommendations and optimizations
+# - Visual timeline and screenshots
+# - Expandable audit details and opportunities
 ```
 
 **Lighthouse Results for Keycloak Login:**
