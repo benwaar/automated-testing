@@ -5,8 +5,8 @@ Feature: Keycloak Admin Console Authentication
 
   Scenario: Successful login with admin credentials
     Given User navigates to the application
-    When I enter the username as "admin"
-    And I enter the password as "password"
+    When I enter the username from config
+    And I enter the password from config
     And I click on login button
     Then User should logged in successfully
     And Logout from the application

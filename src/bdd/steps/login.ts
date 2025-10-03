@@ -118,6 +118,36 @@ When('I enter the password as {string}', async function (this: CustomWorld, pass
   console.log(`🔐 Password entered (from ${password === 'password' ? 'config' : 'feature file'})`);
 });
 
+When('I enter the username from config', async function (this: CustomWorld) {
+  if (!this.config) {
+    throw new Error('Configuration not loaded');
+  }
+
+  // Keycloak specific selectors - username field is typically named "username"
+  const usernameField = this.page!.locator('input[name="username"], input[id="username"], input[type="text"]').first();
+  await usernameField.waitFor({ state: 'visible', timeout: 10000 });
+  await usernameField.click();
+  await usernameField.clear();
+  await usernameField.fill(this.config.username);
+  console.log(`📧 Entered username from config: ${this.config.username}`);
+});
+
+When('I enter the password from config', async function (this: CustomWorld) {
+  if (!this.config) {
+    throw new Error('Configuration not loaded');
+  }
+
+  // Keycloak specific selectors - password field is typically named "password"
+  const passwordField = this.page!.locator(
+    'input[name="password"], input[id="password"], input[type="password"]'
+  ).first();
+  await passwordField.waitFor({ state: 'visible', timeout: 10000 });
+  await passwordField.click();
+  await passwordField.clear();
+  await passwordField.fill(this.config.password);
+  console.log('🔐 Password entered from config');
+});
+
 When('I click on login button', async function (this: CustomWorld) {
   // Keycloak specific selectors - login button is typically input[type="submit"] or button with "Sign In" text
   const loginButton = this.page!.locator(

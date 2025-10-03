@@ -146,6 +146,11 @@ npm run cucumber:json:dev    # Dev environment with JSON report
 npm run test:all
 ```
 
+**BDD Configuration:** The Cucumber tests use environment-specific credentials
+from the config files (e.g., `local.json`, `dev.json`) rather than hardcoded
+values. The login scenarios automatically pull the appropriate username and
+password from the selected environment configuration.
+
 ### Lighthouse Performance Tests
 
 ```bash
