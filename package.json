@@ -4,6 +4,8 @@
   "description": "Playwright, Gherkin, Cucumber &amp; Lighthouse",
   "main": "index.js",
   "scripts": {
+    "preinstall": "node scripts/check-node-version.js",
+    "pretest": "node scripts/check-node-version.js",
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:ui": "npx playwright test --ui",
