@@ -96,6 +96,21 @@ Before running the tests, ensure you have:
 3. **Valid SSL certificate** acceptance in your browser for
    `https://localhost:8443`
 
+### 🔌 Recommended VS Code Extensions
+
+For the best development experience, install these extensions:
+
+```vscode-extensions
+ms-playwright.playwright,alexkrechik.cucumberautocomplete
+```
+
+**Benefits:**
+
+- **Playwright Test for VSCode**: Run and debug Playwright tests directly in VS
+  Code with test explorer integration, breakpoints, and live test execution
+- **Cucumber (Gherkin) Full Support**: Syntax highlighting, autocomplete,
+  formatting, and step definition navigation for `.feature` files
+
 ## 🧪 Running Tests
 
 ### Playwright E2E Tests
