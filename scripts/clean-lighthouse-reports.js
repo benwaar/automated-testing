@@ -5,6 +5,7 @@
  *
  * This script removes all Lighthouse report files from the reports/lighthouse directory.
  * It can be used to clean up old performance reports before running new tests.
+ * If the reports directory doesn't exist, it will be created automatically.
  *
  * Usage:
  *   node scripts/clean-lighthouse-reports.js
@@ -35,10 +36,17 @@ const reportsDir = path.join(__dirname, '..', 'reports', 'lighthouse');
 console.log('🧹 Lighthouse Reports Cleanup Tool');
 console.log('==================================');
 
-// Check if reports directory exists
+// Check if reports directory exists, create if it doesn't
 if (!fs.existsSync(reportsDir)) {
-  console.log(`❌ Reports directory not found: ${reportsDir}`);
-  process.exit(1);
+  console.log(`📁 Reports directory not found: ${reportsDir}`);
+  console.log('📁 Creating reports directory...');
+  try {
+    fs.mkdirSync(reportsDir, { recursive: true });
+    console.log(`✅ Created reports directory: ${reportsDir}`);
+  } catch (error) {
+    console.error(`❌ Failed to create reports directory: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 // Get all files in the lighthouse reports directory

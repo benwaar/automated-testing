@@ -268,8 +268,9 @@ npm run pre-commit
 ├── src/                      # Source files
 │   ├── e2e/                 # E2E test files
 │   │   ├── keycloak.spec.ts # Keycloak login tests
-│   │   ├── keycloak.lighthouse.spec.ts # Lighthouse performance tests
 │   │   └── example.spec.ts  # Example Playwright tests
+│   ├── lighthouse/          # Lighthouse performance tests
+│   │   └── keycloak.lighthouse.spec.ts # Lighthouse performance audits
 │   ├── bdd/                 # Cucumber BDD tests
 │   │   ├── features/        # Cucumber feature files
 │   │   │   └── login.feature # BDD scenarios
