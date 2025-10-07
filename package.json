@@ -33,6 +33,7 @@
     "test:lighthouse:html": "LIGHTHOUSE_FORMAT=html npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
     "test:lighthouse:local:html": "NODE_ENV=local LIGHTHOUSE_FORMAT=html npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
     "test:lighthouse:dev:html": "NODE_ENV=dev LIGHTHOUSE_FORMAT=html npx playwright test src/e2e/keycloak.lighthouse.spec.ts --project=chromium",
+    "test:all:local:html": "npm run cucumber:html:local && npm run test:local --reporter=html && npm run test:lighthouse:local:html",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "commitlint:test": "echo 'test: example commit message' | commitlint",
