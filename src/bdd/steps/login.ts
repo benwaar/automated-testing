@@ -6,14 +6,14 @@ import * as path from 'path';
 // Load configuration based on environment
 function loadConfig() {
   const env = process.env.NODE_ENV || 'local';
-  const configPath = path.join(__dirname, '..', 'config', `${env}.json`);
+  const configPath = path.join(__dirname, '..', '..', 'config', `${env}.json`);
 
   if (fs.existsSync(configPath)) {
     return JSON.parse(fs.readFileSync(configPath, 'utf8'));
   }
 
   // Fallback to local config
-  const localConfigPath = path.join(__dirname, '..', 'config', 'local.json');
+  const localConfigPath = path.join(__dirname, '..', '..', 'config', 'local.json');
   return JSON.parse(fs.readFileSync(localConfigPath, 'utf8'));
 }
 
