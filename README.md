@@ -198,6 +198,33 @@ npm run test:lighthouse:dev:html    # Dev environment with HTML report
 # - Expandable audit details and opportunities
 ```
 
+#### Lighthouse Reports Cleanup
+
+```bash
+# Clean all lighthouse reports (interactive confirmation)
+npm run clean:lighthouse
+
+# Clean all lighthouse reports (skip confirmation - for automation)
+npm run clean:lighthouse:force
+
+# Preview what would be deleted without actually deleting
+npm run clean:lighthouse:dry-run
+
+# Clean only login page reports
+npm run clean:lighthouse:login
+
+# Clean only console page reports
+npm run clean:lighthouse:console
+
+# Clean reports older than 7 days
+npm run clean:lighthouse:old
+
+# Advanced usage with custom options
+node scripts/clean-lighthouse-reports.js --older-than=14 --dry-run
+node scripts/clean-lighthouse-reports.js --console --older-than=3 --force
+node scripts/clean-lighthouse-reports.js --login --force
+```
+
 **Lighthouse Results for Keycloak Login:**
 
 - 📊 Performance Score: 56%
