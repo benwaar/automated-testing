@@ -17,14 +17,14 @@ function loadConfig() {
   return JSON.parse(fs.readFileSync(localConfigPath, 'utf8'));
 }
 
-interface Config {
+export interface Config {
   baseUrl: string;
   username: string;
   password: string;
 }
 
 // World constructor to share browser context across steps
-class CustomWorld {
+export class CustomWorld {
   public browser: Browser | null = null;
   public context: BrowserContext | null = null;
   public page: Page | null = null;
