@@ -253,6 +253,9 @@ npm run pre-commit
 │       ├── dev.json         # Development environment config (add your own)
 │       └── example.json     # Example configuration
 ├── reports/               # Test reports (generated)
+│   ├── bdd/               # Cucumber BDD test reports (.html, .json)
+│   ├── e2e/               # Playwright E2E test reports (HTML report)
+│   └── lighthouse/        # Lighthouse performance audit reports (.json, .html)
 ├── .husky/               # Git hooks
 │   ├── commit-msg        # Commit message validation
 │   └── pre-commit        # Pre-commit formatting, linting and type checking

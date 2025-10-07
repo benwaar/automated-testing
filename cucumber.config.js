@@ -12,7 +12,7 @@ module.exports = {
   html: {
     requireModule: ['ts-node/register'],
     require: ['src/bdd/steps/**/*.ts'],
-    format: ['html:reports/cucumber-report.html'],
+    format: ['html:reports/bdd/cucumber-report.html'],
     paths: ['src/bdd/features/**/*.feature'],
     parallel: 1,
     timeout: 30000
@@ -20,7 +20,7 @@ module.exports = {
   json: {
     requireModule: ['ts-node/register'],
     require: ['src/bdd/steps/**/*.ts'],
-    format: ['json:reports/cucumber-report.json'],
+    format: ['json:reports/bdd/cucumber-report.json'],
     paths: ['src/bdd/features/**/*.feature'],
     parallel: 1,
     timeout: 30000
