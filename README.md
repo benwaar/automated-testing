@@ -181,7 +181,14 @@ npm run test:lighthouse:html        # Default environment with HTML report
 npm run test:lighthouse:local:html  # Local environment with HTML report
 npm run test:lighthouse:dev:html    # Dev environment with HTML report
 
-# Reports are automatically generated in reports/lighthouse/
+# Generate browsable index of lighthouse reports
+npm run lighthouse:index           # Generate index.html for all reports
+npm run lighthouse:index:open      # Generate index and open in browser
+
+# Complete test workflow (recommended)
+npm run test:all:local:html        # Clean → Cucumber → E2E → Lighthouse → Index
+
+# Reports are automatically generated in src/lighthouse/reports/
 # JSON reports (.json) - Detailed programmatic data with:
 # - Performance metrics (FCP, LCP, CLS, TTI)
 # - Accessibility audit results (100% score)
@@ -196,43 +203,91 @@ npm run test:lighthouse:dev:html    # Dev environment with HTML report
 # - Performance recommendations and optimizations
 # - Visual timeline and screenshots
 # - Expandable audit details and opportunities
+
+# Index report (index.html) - Responsive dashboard with:
+# - Categorized reports by page type (Login/Console)
+# - Report format filtering (HTML/JSON)
+# - File size information and generation timestamps
+# - Quick access links and report statistics
+# - Mobile-friendly responsive design
 ```
 
-#### Lighthouse Reports Cleanup
+### Complete Lighthouse Workflow
 
 ```bash
-# Clean all lighthouse reports (interactive confirmation)
-npm run clean:lighthouse
+# 🚀 Recommended: Complete workflow with all features
+npm run test:all:local:html
+# This runs:
+# 1. Clean lighthouse reports (automated)
+# 2. Cucumber BDD tests (with HTML reports)
+# 3. E2E Playwright tests (with HTML reports)
+# 4. Lighthouse audits (login + console pages)
+# 5. Generate lighthouse reports index (browsable dashboard)
+```
 
-# Clean all lighthouse reports (skip confirmation - for automation)
-npm run clean:lighthouse:force
+#### Lighthouse Reports Management
 
-# Preview what would be deleted without actually deleting
-npm run clean:lighthouse:dry-run
+```bash
+# 📊 Generate browsable index of all lighthouse reports
+npm run lighthouse:index           # Generate index.html dashboard
+npm run lighthouse:index:open      # Generate index and open in browser
 
-# Clean only login page reports
-npm run clean:lighthouse:login
+# 🧹 Clean lighthouse reports with advanced filtering
+npm run clean:lighthouse           # Interactive confirmation
+npm run clean:lighthouse:force     # Skip confirmation (automation-friendly)
+npm run clean:lighthouse:dry-run   # Preview deletions without removing files
 
-# Clean only console page reports
-npm run clean:lighthouse:console
+# 🎯 Target specific report types
+npm run clean:lighthouse:login     # Clean only login page reports
+npm run clean:lighthouse:console   # Clean only console page reports
+npm run clean:lighthouse:old       # Clean reports older than 7 days
 
-# Clean reports older than 7 days
-npm run clean:lighthouse:old
-
-# Advanced usage with custom options
+# 🔧 Advanced cleanup with custom options
 node scripts/clean-lighthouse-reports.js --older-than=14 --dry-run
 node scripts/clean-lighthouse-reports.js --console --older-than=3 --force
 node scripts/clean-lighthouse-reports.js --login --force
 ```
 
-**Lighthouse Results for Keycloak Login:**
+#### Lighthouse Reports Index Features
 
-- 📊 Performance Score: 56%
-- ♿ Accessibility Score: 100%
-- ✅ Best Practices Score: 100%
-- 🔍 SEO Score: 50%
+The generated `index.html` provides a comprehensive dashboard for browsing
+lighthouse reports:
+
+- **📱 Responsive Design**: Works on desktop, tablet, and mobile devices
+- **🎯 Smart Categorization**: Groups reports by page type (Login/Console) and
+  format (HTML/JSON)
+- **📊 Statistics Dashboard**: Shows total reports, file sizes, and generation
+  timestamps
+- **🔍 Quick Access**: Direct links to HTML reports and JSON data downloads
+- **🎨 Modern Interface**: Clean, professional design with intuitive navigation
+- **📈 Report Metrics**: File size information and last modified dates
+
+**Lighthouse Results:**
+
+**Login Page Performance:**
+
+- 📊 Performance Score: 56% (exceeds 30% threshold ✅)
+- ♿ Accessibility Score: 100% (exceeds 70% threshold ✅)
+- ✅ Best Practices Score: 100% (exceeds 70% threshold ✅)
+- 🔍 SEO Score: 50% (exceeds 30% threshold ✅)
 - 🎨 First Contentful Paint: ~9.6s
 - 🖼️ Largest Contentful Paint: ~10.6s
+
+**Admin Console Performance:**
+
+- 📊 Performance Score: 55% (exceeds 25% threshold ✅)
+- ♿ Accessibility Score: 100% (exceeds 65% threshold ✅)
+- ✅ Best Practices Score: 100% (exceeds 65% threshold ✅)
+- 🔍 SEO Score: N/A (admin interface)
+- 🎨 First Contentful Paint: ~20.3s
+- 🖼️ Largest Contentful Paint: ~22.4s
+
+**Performance Notes:**
+
+- Admin console load times are higher due to complex JavaScript application
+- Both pages achieve excellent accessibility scores
+- Thresholds are optimized for Keycloak's admin interface complexity
+- Reports include dual auditing: login page + authenticated console
 
 ### TypeScript, Linting & Formatting
 
@@ -270,7 +325,11 @@ npm run pre-commit
 │   │   ├── keycloak.spec.ts # Keycloak login tests
 │   │   └── example.spec.ts  # Example Playwright tests
 │   ├── lighthouse/          # Lighthouse performance tests
-│   │   └── keycloak.lighthouse.spec.ts # Lighthouse performance audits
+│   │   ├── keycloak.lighthouse.spec.ts # Dual lighthouse audits (login + console)
+│   │   └── reports/         # Lighthouse reports (generated)
+│   │       ├── index.html   # Responsive reports dashboard
+│   │       ├── *.html       # Interactive lighthouse reports
+│   │       └── *.json       # Programmatic lighthouse data
 │   ├── bdd/                 # Cucumber BDD tests
 │   │   ├── features/        # Cucumber feature files
 │   │   │   └── login.feature # BDD scenarios
@@ -280,10 +339,13 @@ npm run pre-commit
 │       ├── local.json       # Local development config (add your own)
 │       ├── dev.json         # Development environment config (add your own)
 │       └── example.json     # Example configuration
+├── scripts/               # Utility scripts
+│   ├── clean-lighthouse-reports.js    # Advanced cleanup with filtering
+│   ├── generate-lighthouse-index.js   # HTML index generator
+│   └── check-node-version.js          # Node.js version validation
 ├── reports/               # Test reports (generated)
 │   ├── bdd/               # Cucumber BDD test reports (.html, .json)
-│   ├── e2e/               # Playwright E2E test reports (HTML report)
-│   └── lighthouse/        # Lighthouse performance audit reports (.json, .html)
+│   └── e2e/               # Playwright E2E test reports (HTML report)
 ├── .husky/               # Git hooks
 │   ├── commit-msg        # Commit message validation
 │   └── pre-commit        # Pre-commit formatting, linting and type checking
