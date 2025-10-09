@@ -1,4 +1,4 @@
-import { Given, When, Then, Before, After, setWorldConstructor } from '@cucumber/cucumber';
+import { Given, When, Then, Before, After, setWorldConstructor, World } from '@cucumber/cucumber';
 import { chromium, expect, Browser, BrowserContext, Page } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -24,7 +24,7 @@ export interface Config {
 }
 
 // World constructor to share browser context across steps
-export class CustomWorld {
+export class CustomWorld extends World {
   public browser: Browser | null = null;
   public context: BrowserContext | null = null;
   public page: Page | null = null;
@@ -308,6 +308,11 @@ Then(
       console.log(`⏭️ Skipping lighthouse audit - only supported on Chromium (current: ${browserName})`);
       // Set a default passing score for non-Chromium browsers
       (this as any).accessibilityScore = 100;
+
+      // Attach the skip reason to the Cucumber report
+      this.attach(`Accessibility Score: 100% (default for non-Chromium browser: ${browserName})`, 'text/plain');
+      this.attach(`Lighthouse audit skipped - requires Chromium browser (current: ${browserName})`, 'text/plain');
+
       return;
     }
 
@@ -351,6 +356,11 @@ Then(
       console.log('⚠️ Setting fallback accessibility score of 85% for test continuation');
       // Set a fallback score to allow the test to continue (higher than 80% requirement)
       (this as any).accessibilityScore = 85;
+
+      // Attach the fallback score to the Cucumber report
+      this.attach(`Accessibility Score: 85% (fallback due to audit failure)`, 'text/plain');
+      this.attach(`Lighthouse audit error: ${error instanceof Error ? error.message : String(error)}`, 'text/plain');
+
       return;
     }
 
@@ -360,6 +370,18 @@ Then(
 
     // Store the score in the world for the next step
     (this as any).accessibilityScore = accessibilityScore;
+
+    // Attach the accessibility score to the Cucumber report
+    this.attach(`Accessibility Score: ${accessibilityScore}%`, 'text/plain');
+
+    // Attach detailed lighthouse results as JSON for the report
+    const auditDetails = {
+      url: currentUrl,
+      accessibilityScore: accessibilityScore,
+      timestamp: new Date().toISOString(),
+      auditCategories: lighthouseResult.lhr.categories
+    };
+    this.attach(JSON.stringify(auditDetails, null, 2), 'application/json');
 
     console.log('✅ Lighthouse accessibility audit completed');
   }
@@ -373,6 +395,20 @@ Then('the accessibility score should be over {int}%', function (this: CustomWorl
   }
 
   console.log(`📊 Checking accessibility score: ${actualScore}% (minimum required: ${expectedScore}%)`);
+
+  // Attach the score validation result to the Cucumber report
+  const scoreValidation = {
+    actualScore: actualScore,
+    expectedMinimum: expectedScore,
+    passed: actualScore > expectedScore,
+    validatedAt: new Date().toISOString()
+  };
+
+  this.attach(
+    `Score Validation: ${actualScore}% > ${expectedScore}% = ${actualScore > expectedScore ? 'PASS' : 'FAIL'}`,
+    'text/plain'
+  );
+  this.attach(JSON.stringify(scoreValidation, null, 2), 'application/json');
 
   expect(actualScore).toBeGreaterThan(expectedScore);
 
