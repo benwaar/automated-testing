@@ -1,6 +1,8 @@
 import { Given, When, Then, Before, After } from '@cucumber/cucumber';
 import { expect, Page } from '@playwright/test';
 import { CustomWorld } from './login';
+// Import accessibility testing steps
+import './accessibility';
 
 // Re-use the login steps and world from login.ts
 Given('the user has logged in to the admin console', async function (this: CustomWorld) {
