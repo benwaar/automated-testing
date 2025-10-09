@@ -18,3 +18,9 @@ Feature: Keycloak Admin Console Authentication
     And I enter the password as "wrongpassword"
     And I click on login button
     Then I should see an error message
+
+  Scenario: Accessibility audit on admin console dashboard
+    Given the user has logged in to the admin console
+    When I navigate to the admin console dashboard
+    Then I run the lighthouse accessibility audit on the current page
+    And the accessibility score should be over 80%

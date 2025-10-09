@@ -28,3 +28,9 @@ Feature: Keycloak Admin Console Navigation
     When I navigate to users section
     Then I should see the users management page
     And I should be able to view the users list
+
+  Scenario: Accessibility audit on server info page
+    Given the user has logged in to the admin console
+    When I navigate to the server info section
+    Then I run the lighthouse accessibility audit on the current page
+    And the accessibility score should be over 80%

@@ -267,3 +267,89 @@ Then('Logout from the application', { timeout: 20000 }, async function (this: Cu
     console.log('Error:', error);
   }
 });
+
+// Navigation steps for lighthouse accessibility testing
+When('I navigate to the admin console dashboard', { timeout: 15000 }, async function (this: CustomWorld) {
+  // Navigate to the main admin console dashboard
+  const baseUrl = this.config?.baseUrl || 'https://localhost:8443/';
+  const dashboardUrl = `${baseUrl}admin/master/console/`;
+
+  try {
+    await this.page!.goto(dashboardUrl, { waitUntil: 'networkidle', timeout: 10000 });
+
+    // Wait for dashboard elements to be visible
+    const dashboardElements = this.page!.locator(
+      '.pf-c-page__main, .keycloak-admin, .pf-c-nav, main, .dashboard, body'
+    ).first();
+    await dashboardElements.waitFor({ state: 'visible', timeout: 10000 });
+
+    console.log('🏠 Navigated to admin console dashboard');
+  } catch (error) {
+    console.log('⚠️ Dashboard navigation fallback - page may still be loading');
+    await this.page!.waitForLoadState('networkidle', { timeout: 5000 });
+  }
+});
+
+// Lighthouse accessibility audit steps
+Then(
+  'I run the lighthouse accessibility audit on the current page',
+  { timeout: 60000 },
+  async function (this: CustomWorld) {
+    const { playAudit } = await import('playwright-lighthouse');
+
+    console.log('🔍 Starting lighthouse accessibility audit...');
+
+    const currentUrl = this.page!.url();
+    console.log(`📍 Auditing page: ${currentUrl}`);
+
+    // Run lighthouse audit focusing on accessibility
+    const lighthouseResult = await playAudit({
+      page: this.page!,
+      port: 9224, // Different port to avoid conflicts
+      thresholds: {
+        accessibility: 80 // Require at least 80% accessibility score
+      },
+      config: {
+        extends: 'lighthouse:default',
+        settings: {
+          onlyCategories: ['accessibility'], // Only run accessibility audit
+          formFactor: 'desktop',
+          throttling: {
+            rttMs: 40,
+            throughputKbps: 10 * 1024,
+            cpuSlowdownMultiplier: 1
+          },
+          screenEmulation: {
+            mobile: false,
+            width: 1350,
+            height: 940,
+            deviceScaleFactor: 1
+          }
+        }
+      }
+    });
+
+    // Store the accessibility score for validation
+    const accessibilityScore = (lighthouseResult.lhr.categories.accessibility.score || 0) * 100;
+    console.log(`♿ Accessibility Score: ${accessibilityScore}%`);
+
+    // Store the score in the world for the next step
+    (this as any).accessibilityScore = accessibilityScore;
+
+    console.log('✅ Lighthouse accessibility audit completed');
+  }
+);
+
+Then('the accessibility score should be over {int}%', function (this: CustomWorld, expectedScore: number) {
+  const actualScore = (this as any).accessibilityScore;
+
+  if (actualScore === undefined) {
+    throw new Error('Accessibility score not available. Make sure to run the lighthouse audit first.');
+  }
+
+  console.log(`📊 Checking accessibility score: ${actualScore}% (minimum required: ${expectedScore}%)`);
+
+  expect(actualScore).toBeGreaterThan(expectedScore);
+
+  console.log(`✅ Accessibility score ${actualScore}% exceeds minimum requirement of ${expectedScore}%`);
+});
