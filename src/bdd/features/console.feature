@@ -29,6 +29,7 @@ Feature: Keycloak Admin Console Navigation
     Then I should see the users management page
     And I should be able to view the users list
 
+  @chromium-only
   Scenario: Accessibility audit on server info page
     Given the user has logged in to the admin console
     When I navigate to the server info section
